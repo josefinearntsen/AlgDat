@@ -28,7 +28,7 @@ public class QuicksortComparison {
     System.out.println("\nTesting Dual Pivot Quicksort with random data");
     runDualPivotQuicksort(randomArrayDual, min, max);
 
-    // Test duplicate date table
+    // Test duplicate data table
     System.out.println("\nTesting Quicksort with duplicate data");
     runQuicksort(duplicateArray, min, max);
 
