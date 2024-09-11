@@ -1,0 +1,302 @@
+package org.example;
+
+import java.util.Random;
+
+public class QuicksortComparison {
+
+  public static void main(String[] args) {
+    int size = 50000000;
+    int min = 0;
+    int max = size - 1;
+    int[] randomArray = randomOrder(size);
+    int[] randomArrayDual = randomOrder(size);
+
+    int[] duplicateArray = duplicateOrder(size);
+    int[] duplicateArrayDual = duplicateOrder(size);
+
+    int[] sortedArray = sortedOrder(size);
+    int[] sortedArrayDual = sortedOrder(size);
+
+    int[] reverseSortedArray = reverseSortedOrder(size);
+    int[] reverseSortedArrayDual = reverseSortedOrder(size);
+
+
+    //Test random table
+    System.out.println("\nTesting Quicksort with random data");
+    //Quicksort
+    int randomSum = sumList(randomArray);
+    long startTime1 = System.nanoTime();
+    quicksort(randomArray, min, max);
+    long endTime1 = System.nanoTime();
+    int randomSortedSum = sumList(randomArray);
+    System.out.println(testSum(randomSum, randomSortedSum));
+    long elapsedTime1 = endTime1 - startTime1;
+    double elapsedTimeInSeconds1 = elapsedTime1 / 1_000_000_000.0; // Convert to seconds
+    System.out.printf("Time taken: %.6f seconds%n", elapsedTimeInSeconds1);
+    System.out.println(testSort(randomArray));
+    //Dual pivot quicksort
+    int dualRandomSum = sumList(randomArrayDual);
+    long startTime2 = System.nanoTime();
+    dualPivotQuicksort(randomArrayDual, min, max);
+    long endTime2 = System.nanoTime();
+    int dualSortedRandomSum = sumList(randomArrayDual);
+    System.out.println(testSum(dualRandomSum, dualSortedRandomSum));
+    long elapsedTime2 = endTime2 - startTime2;
+    double elapsedTimeInSeconds2 = elapsedTime2 / 1_000_000_000.0; // Convert to seconds
+    System.out.printf("Time taken: %.6f seconds%n", elapsedTimeInSeconds2);
+    System.out.println(testSort(randomArrayDual));
+
+
+    //Test duplicate date table
+    System.out.println("\nTesting Quicksort with duplicate data");
+    //Quicksort
+    int duplicateSum = sumList(duplicateArray);
+    long startTime3 = System.nanoTime();
+    quicksort(duplicateArray, min, max);
+    long endTime3 = System.nanoTime();
+    int duplicateSortedSum = sumList(duplicateArray);
+    System.out.println(testSum(duplicateSum, duplicateSortedSum));
+    long elapsedTime3 = endTime3 - startTime3;
+    double elapsedTimeInSeconds3 = elapsedTime3 / 1_000_000_000.0; // Convert to seconds
+    System.out.printf("Time taken: %.6f seconds%n", elapsedTimeInSeconds3);
+    System.out.println(testSort(duplicateArray));
+    //Dual pivot quicksort
+    int dualpivotDuplicateSum = sumList(duplicateArrayDual);
+    long startTime4 = System.nanoTime();
+    dualPivotQuicksort(duplicateArrayDual, min, max);
+    long endTime4 = System.nanoTime();
+    int dualpivotSortedDuplicateSum = sumList(duplicateArrayDual);
+    System.out.println(testSum(dualpivotDuplicateSum, dualpivotSortedDuplicateSum));
+    long elapsedTime4 = endTime4 - startTime4;
+    double elapsedTimeInSeconds4 = elapsedTime4 / 1_000_000_000.0; // Convert to seconds
+    System.out.printf("Time taken: %.6f seconds%n", elapsedTimeInSeconds4);
+    System.out.println(testSort(duplicateArrayDual));
+
+
+    // Test sorted data
+    System.out.println("\nTesting Quicksort with sorted data");
+    // Quicksort
+    int sortedSum = sumList(sortedArray);
+    long startTime5 = System.nanoTime();
+    quicksort(sortedArray, min, max);
+    long endTime5 = System.nanoTime();
+    int sortedSortedSum = sumList(sortedArray);
+    System.out.println(testSum(sortedSum, sortedSortedSum));
+    long elapsedTime5 = endTime5 - startTime5;
+    double elapsedTimeInSeconds5 = elapsedTime5 / 1_000_000_000.0; // Convert to seconds
+    System.out.printf("Time taken: %.6f seconds%n", elapsedTimeInSeconds5);
+    System.out.println(testSort(sortedArray));
+    // Dual pivot quicksort
+    int dualpivotSortedSum = sumList(sortedArrayDual);
+    long startTime6 = System.nanoTime();
+    dualPivotQuicksort(sortedArrayDual, min, max);
+    long endTime6 = System.nanoTime();
+    int dualpivotSortedSortedSum = sumList(sortedArrayDual);
+    System.out.println(testSum(dualpivotSortedSum, dualpivotSortedSortedSum));
+    long elapsedTime6 = endTime6 - startTime6;
+    double elapsedTimeInSeconds6 = elapsedTime6 / 1_000_000_000.0; // Convert to seconds
+    System.out.printf("Time taken: %.6f seconds%n", elapsedTimeInSeconds6);
+    System.out.println(testSort(sortedArrayDual));
+
+
+    // Test reverse sorted data
+    System.out.println("\nTesting Quicksort with reverse sorted data");
+    // Quicksort
+    int reverseSum = sumList(reverseSortedArray);
+    long startTime7 = System.nanoTime();
+    quicksort(reverseSortedArray, min, max);
+    long endTime7 = System.nanoTime();
+    int sortedReverseSum = sumList(reverseSortedArray);
+    System.out.println(testSum(reverseSum, sortedReverseSum));
+    long elapsedTime7 = endTime7 - startTime7;
+    double elapsedTimeInSeconds7 = elapsedTime7 / 1_000_000_000.0; // Convert to seconds
+    System.out.printf("Time taken: %.6f seconds%n", elapsedTimeInSeconds7);
+    System.out.println(testSort(reverseSortedArray));
+    // Dual pivot quicksort
+    int dualpivotReverseSum = sumList(reverseSortedArrayDual);
+    long startTime8 = System.nanoTime();
+    dualPivotQuicksort(reverseSortedArrayDual, min, max);
+    long endTime8 = System.nanoTime();
+    int dualpivotSortedReverseSum = sumList(reverseSortedArrayDual);
+    System.out.println(testSum(dualpivotSortedReverseSum, dualpivotSortedReverseSum));
+    long elapsedTime8 = endTime8 - startTime8;
+    double elapsedTimeInSeconds8 = elapsedTime8 / 1_000_000_000.0; // Convert to seconds
+    System.out.printf("Time taken: %.6f seconds%n", elapsedTimeInSeconds8);
+    System.out.println(testSort(reverseSortedArrayDual));
+  }
+
+
+
+  public static int[] randomOrder(int size) {
+    Random random = new Random();
+    int[] randomArray = new int[size];                                                
+
+    for (int i = 0; i < size; i++) {
+      randomArray[i] = random.nextInt();
+    }
+
+    return randomArray;
+  }
+
+  public static int[] duplicateOrder(int size) {
+    int[] array = new int[size];
+    for (int i = 0; i < size; i++) {
+      array[i] = (i % 2 == 0) ? 42 : i;
+    }
+    return array;
+  }
+
+  public static int[] sortedOrder(int size) {
+    int[] array = new int[size];
+    for (int i = 0; i < size; i++) {
+      array[i] = i;
+    }
+    return array;
+  }
+
+  public static int[] reverseSortedOrder(int size) {
+    int[] array = new int[size];
+    for (int i = 0; i < size; i++) {
+      array[i] = size - i;
+    }
+    return array;
+  }
+
+  public static void swap(int []t, int i, int j) {
+    int k = t[j];
+    t[j] = t[i];
+    t[i] = k;
+  }
+
+  public static void quicksort(int []t, int v, int h) {
+    if (h - v > 2) {
+      int delepos = split(t, v, h);
+        quicksort(t, v, delepos - 1);
+        quicksort(t, delepos + 1, h);
+    } else median3sort(t, v, h);
+  }
+
+  private static int median3sort(int []t, int v, int h) {
+    int m = (v + h) / 2;
+    if (t[v] > t[m]) swap(t, v, m);
+    if (t[m] > t[h]) {
+      swap(t, m, h);
+      if (t[v] > t[m]) swap(t, v, m);
+    }
+    return m;
+  }
+
+  private static int split(int []t, int v, int h) {
+    int iv, ih;
+    int m = median3sort(t, v, h);
+    int dv = t[m];
+    swap(t, m, h - 1);
+    for (iv = v, ih = h - 1;;) {
+      while (t[++iv] < dv);
+      while (t[--ih] > dv);
+      if (iv >= ih) break;
+      swap(t, iv, ih);
+    }
+    swap(t, iv, h - 1);
+    return iv;
+  }
+
+
+  public static void dualPivotQuicksort(int[] arr, int low, int high){
+
+    if(low < high){
+      int[] piv;
+      piv = dualSplit(arr, low, high);
+
+      dualPivotQuicksort(arr, low, piv[0] - 1);
+      dualPivotQuicksort(arr, piv[0] + 1, piv[1] - 1);
+      dualPivotQuicksort(arr, piv[1] + 1, high);
+    }
+  }
+
+
+  static int[] dualSplit(int[] arr, int low, int high)
+  {
+    int swapValue1 = arr[low];
+    arr[low] = arr[low + (high-low)/3];
+    arr[low + (high-low)/3] = swapValue1;
+
+    if (arr[low] > arr[high])
+      swap(arr, low, high);
+
+    // p is the left pivot, and q
+    // is the right pivot.
+    int j = low + 1;
+    int g = high - 1, k = low + 1,
+        p = arr[low], q = arr[high];
+
+    while (k <= g)
+    {
+
+      // If elements are less than the left pivot
+      if (arr[k] < p)
+      {
+        swap(arr, k, j);
+        j++;
+      }
+
+      // If elements are greater than or equal
+      // to the right pivot
+      else if (arr[k] >= q)
+      {
+        while (arr[g] > q && k < g)
+          g--;
+
+        swap(arr, k, g);
+        g--;
+
+        if (arr[k] < p)
+        {
+          swap(arr, k, j);
+          j++;
+        }
+      }
+      k++;
+    }
+    j--;
+    g++;
+
+    // Bring pivots to their appropriate positions.
+    swap(arr, low, j);
+    swap(arr, high, g);
+
+    // Returning the indices of the pivots
+    // because we cannot return two elements
+    // from a function, we do that using an array.
+    return new int[] { j, g };
+  }
+
+
+
+  private static String testSort(int []table) {
+    for (int i = 0; i < table.length - 1; i++) {
+      if (table[i] > table[i+1]) {
+        return "The table is not sorted: ";
+      }
+    }
+    return "The table is sorted";
+  }
+
+  private static String testSum(int first, int after){
+    if(first == after){
+      return ("The sum is equal before and after sorting");
+    } else {
+      return ("The sum is not equal before and after sorting");
+    }
+  }
+
+
+  public static int sumList(int []t) {
+    int sum = 0;
+    for (int i = 0; i < t.length; i++) {
+      sum += t[i];
+    }
+    return sum;}
+
+}
+
