@@ -135,7 +135,9 @@ public class QuicksortComparison {
       piv = dualSplit(arr, low, high);
 
       dualPivotQuicksort(arr, low, piv[0] - 1);
-      dualPivotQuicksort(arr, piv[0] + 1, piv[1] - 1);
+      if (arr[piv[0]] != arr[piv[1]]) {
+        dualPivotQuicksort(arr, piv[0] + 1, piv[1] - 1);
+      }
       dualPivotQuicksort(arr, piv[1] + 1, high);
     }
   }
